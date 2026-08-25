@@ -2,6 +2,7 @@ package turb
 
 import (
 	"waterplant/internal/coag"
+	"waterplant/internal/intake"
 )
 
 type Sampler struct {
@@ -14,19 +15,11 @@ func NewSampler(d *coag.Doser) *Sampler {
 }
 
 func (s *Sampler) Judge(raw []float64) (float64, error) {
-	verdict := verdictFor(maxRaw(raw))
+	// Mix the suspension before judging so a single unmixed point cannot
+	// spike the verdict and push the coagulant dose up.
+	verdict := verdictFor(intake.Mix(raw))
 	s.last = verdict
 	return s.doser.DoseForTurbidity(verdict), nil
-}
-
-func maxRaw(values []float64) float64 {
-	highest := 0.0
-	for _, value := range values {
-		if value > highest {
-			highest = value
-		}
-	}
-	return highest
 }
 
 func verdictFor(turbidity float64) float64 {
