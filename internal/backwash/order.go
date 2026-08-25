@@ -4,7 +4,7 @@ import "sort"
 
 func (c *Controller) OrderRotation() ([]string, error) {
 	beds := c.bank.Beds()
-	sort.Slice(beds, func(i, j int) bool { return beds[i].Load < beds[j].Load })
+	sort.Slice(beds, func(i, j int) bool { return beds[i].Load > beds[j].Load })
 	order := make([]string, 0, len(beds))
 	for _, bed := range beds {
 		order = append(order, bed.ID)
