@@ -1,0 +1,58 @@
+package console
+
+import (
+	"net/http"
+
+	"github.com/go-chi/chi/v5"
+)
+
+func (s *Server) routes() http.Handler {
+	r := chi.NewRouter()
+	r.Get("/health", s.handleHealth)
+	r.Get("/health/checks", s.handleChecks)
+	r.Get("/snapshot", s.handleSnapshot)
+	r.Get("/describe", s.handleDescribe)
+	r.Get("/report", s.handleReport)
+	r.Get("/pipeline", s.handlePipeline)
+	r.Get("/catalog", s.handleCatalog)
+	r.Get("/ops", s.handleOps)
+	r.Post("/ops/reset-store", s.handleOpsResetStore)
+	r.Get("/telemetry", s.handleTelemetry)
+	r.Get("/version", s.handleVersion)
+	r.Get("/system", s.handleSystem)
+	r.Post("/history", s.handleHistoryAppend)
+	r.Get("/history", s.handleHistory)
+	r.Post("/history/clear", s.handleHistoryClear)
+	r.Post("/intake/flow", s.handleIntakeFlow)
+	r.Post("/cycle", s.handleCycle)
+	r.Post("/simulate", s.handleSimulate)
+	r.Get("/intake/flow", s.handleIntakeFlowGet)
+	r.Post("/coag/dose", s.handleCoagDose)
+	r.Post("/coag/turbidity", s.handleCoagTurbidity)
+	r.Get("/coag/ratio", s.handleCoagRatio)
+	r.Post("/flow/replace", s.handleFlowReplace)
+	r.Post("/chlor/target", s.handleChlorTarget)
+	r.Post("/chlor/dose", s.handleChlorDose)
+	r.Post("/clearwell/level", s.handleClearwellLevel)
+	r.Post("/filter/add", s.handleFilterAdd)
+	r.Post("/filter/close", s.handleFilterClose)
+	r.Post("/filter/open", s.handleFilterOpen)
+	r.Post("/filter/renumber", s.handleFilterRenumber)
+	r.Post("/filter/load", s.handleFilterLoad)
+	r.Post("/filter/reset", s.handleFilterReset)
+	r.Post("/filter/remove", s.handleFilterRemove)
+	r.Post("/filter/zone", s.handleFilterZone)
+	r.Post("/backwash/start", s.handleBackwashStart)
+	r.Get("/backwash/order", s.handleBackwashOrder)
+	r.Post("/backwash/select", s.handleBackwashSelect)
+	r.Post("/backwash/enqueue", s.handleBackwashEnqueue)
+	r.Post("/backwash/recover", s.handleBackwashRecover)
+	r.Post("/backwash/replay", s.handleBackwashReplay)
+	r.Post("/quota/add", s.handleQuotaAdd)
+	r.Get("/quota", s.handleQuotaGet)
+	r.Post("/quota/check", s.handleQuotaCheck)
+	r.Get("/audit", s.handleAudit)
+	r.Get("/audit/summary", s.handleAuditSummary)
+	r.Post("/audit/filter", s.handleAuditFilter)
+	return r
+}
