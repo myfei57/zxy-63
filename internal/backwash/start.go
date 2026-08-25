@@ -8,10 +8,10 @@ const drainKeyPrefix = "backwash:drain:"
 const spillKey = "backwash:spill"
 
 func (c *Controller) Start(bedID string) error {
-	if err := c.drain(bedID); err != nil {
+	if err := c.bank.Close(bedID); err != nil {
 		return err
 	}
-	return c.bank.Close(bedID)
+	return c.drain(bedID)
 }
 
 func (c *Controller) drain(bedID string) error {
