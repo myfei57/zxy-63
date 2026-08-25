@@ -7,16 +7,13 @@ import (
 )
 
 type Doser struct {
-	well   *clearwell.Well
-	audit  *audit.Auditor
-	target float64
+	well  *clearwell.Well
+	audit *audit.Auditor
 }
 
 func NewDoser(s *store.Store) *Doser {
-	well := clearwell.NewWell(s)
 	return &Doser{
-		well:   well,
-		audit:  audit.NewAuditor(s),
-		target: well.ResidualTarget(),
+		well:  clearwell.NewWell(s),
+		audit: audit.NewAuditor(s),
 	}
 }
