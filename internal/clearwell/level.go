@@ -8,8 +8,8 @@ func (w *Well) AdjustLevel(target float64, inlet, outlet *intake.InletController
 	var mid float64
 	var final float64
 	if delta >= 0 {
-		mid = outlet.Lower(start, delta)
-		final = inlet.Raise(mid, delta)
+		mid = inlet.Raise(start, delta)
+		final = outlet.Lower(mid, delta)
 	} else {
 		amount := -delta
 		mid = inlet.Raise(start, amount)
